@@ -1,0 +1,10 @@
+[project]
+name = "aliss-mcp-v2"
+version = "0.1.0"
+description = "ALISS MCP Server"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastmcp==2.13.1",
+    "httpx"
+]
