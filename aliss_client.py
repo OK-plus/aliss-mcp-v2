@@ -4,6 +4,7 @@ ALISS_API = "https://www.aliss.org/api/v4/services/"
 
 
 async def search_aliss(postcode: str, keyword: str, radius: int = 10):
+
     params = {
         "postcode": postcode,
         "q": keyword,
@@ -17,10 +18,11 @@ async def search_aliss(postcode: str, keyword: str, radius: int = 10):
 
     data = response.json()
 
-    services = []
+    results = []
 
     for service in data.get("results", [])[:10]:
-        services.append(
+
+        results.append(
             {
                 "name": service.get("name"),
                 "description": service.get("description"),
@@ -31,4 +33,4 @@ async def search_aliss(postcode: str, keyword: str, radius: int = 10):
             }
         )
 
-    return services
+    return results
