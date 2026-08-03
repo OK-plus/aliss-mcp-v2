@@ -1,16 +1,12 @@
-import asyncio
-import logging
 import os
+import logging
 
 from fastmcp import FastMCP
 from aliss_client import search_aliss
 
 logging.basicConfig(level=logging.INFO)
 
-mcp = FastMCP(
-    "ALISS Community Services",
-    stateless_http=True
-)
+mcp = FastMCP("ALISS Community Services")
 
 
 @mcp.tool()
@@ -27,13 +23,14 @@ async def find_aliss_services(
 
 if __name__ == "__main__":
 
-    logging.info(
-        f"Starting ALISS MCP on port {os.getenv('PORT', '8080')}"
-    )
+    port = int(os.environ.get("PORT", 8080))
 
-mcp.run(
-    transport="streamable-http",
-    host="0.0.0.0",
-    port=int(os.getenv("PORT", "8080")),
-    stateless_http=True,
-)
+    logging.info(f"Starting MCP server on port {port}")
+
+    mcp.run(
+        transport="streamable-http",
+        host="0.0.0.0",
+        port=port,
+        path="/mcp",
+        stateless_http=True,
+    )
