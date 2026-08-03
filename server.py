@@ -29,9 +29,9 @@ if __name__ == "__main__":
         f"Starting ALISS MCP on port {os.getenv('PORT', 8080)}"
     )
 
-   asyncio.run(
+  asyncio.run(
     mcp.run_async(
-        transport="streamable-http",
+        transport="http",
         host="0.0.0.0",
         port=int(os.getenv("PORT", "8080")),
         stateless_http=True,
