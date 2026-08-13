@@ -8,7 +8,10 @@ from aliss_client import search_aliss
 
 logging.basicConfig(level=logging.INFO)
 
-mcp = FastMCP("ALISS Community Services")
+mcp = FastMCP(
+    "ALISS Community Services",
+    stateless_http=True,
+)
 
 
 @mcp.tool()
@@ -29,9 +32,8 @@ if __name__ == "__main__":
     logging.info("Starting ALISS MCP server on port %s", port)
 
     mcp.run(
-        transport="streamable-http",
+        transport="http",
         host="0.0.0.0",
         port=port,
         path="/mcp",
-        stateless_http=True,
     )
