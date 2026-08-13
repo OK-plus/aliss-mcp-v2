@@ -8,10 +8,7 @@ from aliss_client import search_aliss
 
 logging.basicConfig(level=logging.INFO)
 
-mcp = FastMCP(
-    "ALISS Community Services",
-    stateless_http=True,
-)
+mcp = FastMCP("ALISS Community Services")
 
 
 @mcp.tool()
@@ -20,19 +17,17 @@ async def find_aliss_services(
     keyword: str,
     radius: int = 10,
 ):
-    """
-    Search ALISS for local community services.
-    """
+    """Search ALISS for local community services."""
     return await search_aliss(postcode, keyword, radius)
 
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", "8080"))
 
-    logging.info("Starting ALISS MCP server on port %s", port)
+    logging.info("Starting ALISS MCP on port %s", port)
 
     mcp.run(
-        transport="http",
+        transport="streamable-http",
         host="0.0.0.0",
         port=port,
         path="/mcp",
