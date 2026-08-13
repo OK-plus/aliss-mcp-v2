@@ -1,17 +1,13 @@
-FROM python:3.12-slim
-
-COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+FROM ghcr.io/astral-sh/uv:python3.12-bookworm
 
 WORKDIR /app
 
-COPY . /app
-
-ENV PYTHONUNBUFFERED=1
-ENV FASTMCP_STATELESS_HTTP=true
-ENV FASTMCP_STREAMABLE_HTTP_PATH=/mcp
+COPY pyproject.toml .
+COPY server.py .
+COPY aliss_client.py .
 
 RUN uv sync
 
 EXPOSE 8080
 
-CMD ["sh", "-c", "uv run python -c 'import fastmcp; print(\"FASTMCP VERSION:\", fastmcp.__version__)' && uv run server.py"]
+CMD ["uv", "run", "server.py"]
