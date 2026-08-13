@@ -8,9 +8,7 @@ from aliss_client import search_aliss
 
 logging.basicConfig(level=logging.INFO)
 
-mcp = FastMCP(
-    "ALISS Community Services",
-)
+mcp = FastMCP("ALISS Community Services")
 
 
 @mcp.tool()
@@ -25,20 +23,15 @@ async def find_aliss_services(
     return await search_aliss(postcode, keyword, radius)
 
 
-app = mcp.http_app(
-    stateless_http=True,
-)
-
-
 if __name__ == "__main__":
-    import uvicorn
-
     port = int(os.environ.get("PORT", "8080"))
 
     logging.info("Starting ALISS MCP server on port %s", port)
 
-    uvicorn.run(
-        app,
+    mcp.run(
+        transport="streamable-http",
         host="0.0.0.0",
         port=port,
+        path="/mcp",
+        stateless_http=True,
     )
