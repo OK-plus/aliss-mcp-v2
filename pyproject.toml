@@ -5,6 +5,6 @@ description = "ALISS MCP Server"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-   "fastmcp==3.4.7",
-    "httpx"
+    "fastmcp==3.4.7",
+    "httpx",
 ]
