@@ -12,4 +12,4 @@ RUN uv sync
 
 EXPOSE 8080
 
-CMD ["uv", "run", "server.py"]
+CMD ["uv", "run", "uvicorn", "server:app", "--host", "0.0.0.0", "--port", "8080"]
