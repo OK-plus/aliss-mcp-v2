@@ -6,7 +6,12 @@ from aliss_client import search_aliss
 
 logging.basicConfig(level=logging.INFO)
 
-mcp = FastMCP("ALISS Community Services")
+# IMPORTANT:
+# Set stateless_http=True here AND on http_app below.
+mcp = FastMCP(
+    "ALISS Community Services",
+    stateless_http=True,
+)
 
 
 @mcp.tool()
@@ -22,8 +27,7 @@ async def find_aliss_services(
 
 
 # IMPORTANT:
-# Cloud Run serves this ASGI application.
-# Stateless HTTP is configured HERE, on the app that is actually served.
+# This is the actual ASGI application Cloud Run will serve.
 app = mcp.http_app(
     path="/mcp",
     stateless_http=True,
