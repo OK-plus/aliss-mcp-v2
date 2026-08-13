@@ -1,17 +1,14 @@
-import os
 import logging
+import os
 
 from fastmcp import FastMCP
+
 from aliss_client import search_aliss
+
 
 logging.basicConfig(level=logging.INFO)
 
-# IMPORTANT:
-# Set stateless_http=True here AND on http_app below.
-mcp = FastMCP(
-    "ALISS Community Services",
-    stateless_http=True,
-)
+mcp = FastMCP("ALISS Community Services")
 
 
 @mcp.tool()
@@ -26,9 +23,18 @@ async def find_aliss_services(
     return await search_aliss(postcode, keyword, radius)
 
 
-# IMPORTANT:
-# This is the actual ASGI application Cloud Run will serve.
-app = mcp.http_app(
-    path="/mcp",
-    stateless_http=True,
-)
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", "8080"))
+
+    logging.info(
+        "Starting ALISS MCP server on port %s",
+        port,
+    )
+
+    mcp.run(
+        transport="streamable-http",
+        host="0.0.0.0",
+        port=port,
+        path="/mcp",
+        stateless_http=True,
+    )
