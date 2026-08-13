@@ -10,4 +10,4 @@ RUN uv sync
 
 EXPOSE 8080
 
-CMD ["uv", "run", "server.py"]
+CMD ["sh", "-c", "uv run python -c 'import fastmcp; print(\"INSTALLED FASTMCP:\", fastmcp.__version__)' && uv run server.py"]
