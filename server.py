@@ -2,7 +2,6 @@ import logging
 import os
 
 from fastmcp import FastMCP
-
 from aliss_client import search_aliss
 
 
@@ -12,6 +11,8 @@ mcp = FastMCP(
     "ALISS Community Services",
     stateless_http=True,
 )
+
+logging.info("MCP STATELESS HTTP: %s", mcp.settings.stateless_http)
 
 
 @mcp.tool()
