@@ -26,9 +26,10 @@ if __name__ == "__main__":
 
     logging.info("Starting ALISS MCP on port %s", port)
 
-    mcp.run(
-        transport="streamable-http",
-        host="0.0.0.0",
-        port=port,
-        path="/mcp",
-    )
+ mcp.run(
+    transport="streamable-http",
+    host="0.0.0.0",
+    port=int(os.environ.get("PORT", 8080)),
+    path="/mcp",
+    stateless_http=True,
+)
