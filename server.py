@@ -12,8 +12,6 @@ mcp = FastMCP(
     stateless_http=True,
 )
 
-logging.info("MCP STATELESS HTTP: %s", mcp.settings.stateless_http)
-
 
 @mcp.tool()
 async def find_aliss_services(
@@ -35,5 +33,4 @@ if __name__ == "__main__":
         host="0.0.0.0",
         port=port,
         path="/mcp",
-        stateless_http=True,
     )
