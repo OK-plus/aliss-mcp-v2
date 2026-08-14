@@ -8,7 +8,10 @@ from aliss_client import search_aliss
 
 logging.basicConfig(level=logging.INFO)
 
-mcp = FastMCP("ALISS Community Services")
+mcp = FastMCP(
+    "ALISS Community Services",
+    stateless_http=True,
+)
 
 
 @mcp.tool()
